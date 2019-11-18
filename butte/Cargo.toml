@@ -11,3 +11,5 @@ categories = ["encoding", "data-structures", "memory-management"]
 
 [dependencies]
 smallvec = "1.0.0"
+thiserror = "1.0.5"
+displaydoc = "0.1.4"

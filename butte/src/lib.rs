@@ -28,8 +28,10 @@
 //! At this time, to generate Rust code, you will need the latest `master` version of `flatc`, available from here: https://github.com/google/flatbuffers
 //! (On OSX, you can install FlatBuffers from `HEAD` with the Homebrew package manager.)
 
+mod buf_ptr;
 mod builder;
 mod endian_scalar;
+mod error;
 mod follow;
 mod primitives;
 mod push;
@@ -43,6 +45,7 @@ pub use crate::{
     endian_scalar::{
         byte_swap_f32, byte_swap_f64, emplace_scalar, read_scalar, read_scalar_at, EndianScalar,
     },
+    error::{Error, Result},
     follow::{Follow, FollowStart},
     primitives::*,
     push::Push,

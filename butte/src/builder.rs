@@ -349,8 +349,9 @@ impl<'fbb> FlatBufferBuilder<'fbb> {
         slot_byte_loc: VOffsetT,
         assert_msg_name: &'static str,
     ) {
+        // FIXME: Use u32 all the way here?
         let idx = self.used_space() - tab_revloc.value() as usize;
-        let tab = Table::new(&self.owned_buf[self.head..], idx);
+        let tab = Table::from_buf_loc(&self.owned_buf[self.head..], idx).expect("FIXME: Can fail");
         let o = tab.vtable().get(slot_byte_loc) as usize;
         assert!(o != 0, "missing required field {}", assert_msg_name);
     }
