@@ -17,7 +17,7 @@ use std::{fmt, u64};
 ///
 /// Will never panic, but returns errors on illegal/out-of-bounds
 /// operations instead.
-#[derive(Clone, Copy)]
+#[derive(Clone, Copy, Eq, PartialEq)]
 pub struct BufPtr<'a> {
     /// Underlying buffer.
     pub buf: &'a [u8],

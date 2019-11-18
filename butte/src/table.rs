@@ -25,7 +25,7 @@ use std::convert::TryFrom;
 use std::mem;
 
 /// Read-wrapper for table values.
-#[derive(Debug)]
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub struct Table<'a> {
     start: BufPtr<'a>,
     // FIXME: We duplicate the slice here, requiring an extra 8 bytes of storage.
@@ -70,6 +70,7 @@ impl<'a> Table<'a> {
 
     #[inline]
     pub fn get<T: Follow<'a> + 'a>(&self, slot_byte_loc: VOffsetT) -> Result<Option<T::Inner>> {
+        // TODO: Check bounds properly and pass in default in codegen.
         let o = self.vtable().get(slot_byte_loc) as usize;
         if o == 0 {
             return Ok(None);

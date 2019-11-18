@@ -18,7 +18,7 @@ use crate::{endian_scalar::read_scalar_at, follow::Follow, primitives::*};
 
 /// VTable encapsulates read-only usage of a vtable. It is only to be used
 /// by generated code.
-#[derive(Debug)]
+#[derive(Clone, Copy, Debug, Eq)]
 pub struct VTable<'a> {
     buf: &'a [u8],
     loc: usize,

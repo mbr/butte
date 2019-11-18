@@ -211,7 +211,8 @@ impl ToTokens for Table<'_> {
                 #[inline]
                 pub fn #snake_name(&self) -> Option<#ty_simple_lifetime> {
                     self.table
-                        .get::<#ty_wrapped>(#struct_id::#offset_name, None)
+                        // We are never returning a default value here, which is missing in our impl.
+                        .get::<#ty_wrapped>(#struct_id::#offset_name).expect("FIXME: Pass in correct default")
                 }
             }
         });
@@ -266,7 +267,7 @@ impl ToTokens for Table<'_> {
 
                 #[inline]
                 fn follow(buf: &'a [u8], loc: usize) -> Self::Inner {
-                    let table = butte::Table { buf, loc };
+                    let table = butte::Table::from_buf_loc(buf, loc).expect("FIXME: Handle out-of-bounds");
                     Self { table }
                 }
             }
